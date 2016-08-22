@@ -109,7 +109,7 @@ public static class SolidWorksBitmapHeler
                 get { return _blue; }
                 set { _blue = value; }
             }
-
+            private int Alpha {get; private set;}      
         }
 
     }
