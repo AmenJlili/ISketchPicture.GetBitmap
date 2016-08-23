@@ -1,4 +1,4 @@
-  public class SolidWorksBitmapHelper
+public class SolidWorksBitmapHelper
     {
         private SolidWorksBitmapHelper(){ }
         public static Bitmap GetBitmapFromSketchPicture(SketchPicture sp)
