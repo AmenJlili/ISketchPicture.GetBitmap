@@ -6,6 +6,7 @@ Bitmap GetBitmapFromSketchPicture(SkechPicture sp)
 # Example
 
 
+
   public void Main()
         {
             ModelDoc2 swModelDoc = (ModelDoc2)swApp.ActiveDoc;
