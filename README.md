@@ -6,8 +6,7 @@ Bitmap GetBitmapFromSketchPicture(SkechPicture sp)
 # Example
 
 
-
-  public void Main()
+         public void Main()
         {
             ModelDoc2 swModelDoc = (ModelDoc2)swApp.ActiveDoc;
             SelectionMgr swSelectionMgr = (SelectionMgr)swModelDoc.SelectionManager;
@@ -17,3 +16,6 @@ Bitmap GetBitmapFromSketchPicture(SkechPicture sp)
             SolidWorksBitmapHelper.GetBitmapFromSketchPicture(sp).Save(@"c:\bitmap.bmp");;
             
         }
+
+
+  
