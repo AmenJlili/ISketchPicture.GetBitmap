@@ -1,8 +1,9 @@
-public static class SolidWorksBitmapHelper
+  public class SolidWorksBitmapHelper
     {
+        private SolidWorksBitmapHelper(){ }
         public static Bitmap GetBitmapFromSketchPicture(SketchPicture sp)
         {
-         try
+            try
             {
                 double width = 0;
                 double height = 0;
@@ -12,79 +13,75 @@ public static class SolidWorksBitmapHelper
                 widthint = Convert.ToInt32(width * 1000);
                 heightint = Convert.ToInt32(height * 1000);
                 int size = sp.GetPixelmapSize(ref widthint, ref heightint);
-                Logger.WriteStep(string.Format("    Size: " + size.ToString()));
-                short[] bmp = (short[])sp.GetPixelmap();
-               
-                List<Pixel> pixels = new List<Pixel>();
-                Logger.WriteStep("  List of pixels created");
+                short[] Pixelmap = (short[])sp.GetPixelmap();
+                List<pixel> pixels = new List<pixel>();
                 Bitmap b = new Bitmap(widthint, heightint);
-                Logger.WriteStep("  Empty bitmap created");
-                var l = size % 3;
-                if (l == 0)
+                // remainder of div by 3 to determine the number of channels
+                int d = size % 3;
+                 
+                if (d == 0)
                 {
-                    l = 3;
-                    Logger.WriteStep("  Entering l = 3 loop");
-                    for (int i = 0; i < size; i += l)
-                    {
-                        
-                       Pixel p = new Pixel();
-                        p.Red = bmp[i];
-                        p.Green = bmp[i + 1];
-                        p.Blue = bmp[i + 2];
-                        pixels.Add(p);
-                    }
-                    Logger.WriteStep("  List of pixels created. Count: " + pixels.Count.ToString() );
-
-                    int c = 0;
-                    for (int i = 0; i < widthint; i++)
-                    {
-                        for (int j = 0; j < heightint; j++)
+                        int l = 3;
+                        for (int i = 0; i < size; i += l)
                         {
-                            Pixel pp = pixels[c];
-                            b.SetPixel(j, i, System.Drawing.Color.FromArgb(pp.Red, pp.Green, pp.Blue));
-                            c++;
+
+                            pixel p = new pixel();
+                            p.Red = Pixelmap[i];
+                            p.Green = Pixelmap[i + 1];
+                            p.Blue = Pixelmap[i + 2];
+                            pixels.Add(p);
                         }
-                        
-                    }
-                }
-                else
-                {
-                    l = 4;
-
-                    for (int i = 0; i < size; i += l)
-                    {
-                        Pixel p = new Pixel();
-                       
-                        p.Red = bmp[i];
-                        p.Green = bmp[i+1];
-                        p.Blue = bmp[i +2];
-                        p.Alpha = bmp[i+3];
-                        pixels.Add(p);
-                    }
-                    Logger.WriteStep("  List of pixels created. Count: " + pixels.Count.ToString());
-
-                    int c = 0;
-                    for (int i = 0; i < widthint; i++)
-                    {
-                        for (int j = 0; j < heightint; j++)
+                        int c = 0;
+                        for (int i = 0; i < widthint; i++)
                         {
-                            Pixel pp = pixels[c];
-                            b.SetPixel(j, i, System.Drawing.Color.FromArgb(pp.Alpha, pp.Red, pp.Green, pp.Blue));
-                            c++;
+                            for (int j = 0; j < heightint; j++)
+                            {
+                                pixel pp = pixels[c];
+                                b.SetPixel(j, i, System.Drawing.Color.FromArgb(pp.Red, pp.Green, pp.Blue));
+                                c++;
+                            }
+
                         }
-                    }
-                }
+                }  
+                    
+                   else {
+
+                        // picture contains additional alpha channel
+                        int l = 4;
+                        for (int i = 0; i < size; i += l)
+                        {
+                            pixel p = new pixel();
+
+                            p.Red = Pixelmap[i];
+                            p.Green = Pixelmap[i + 1];
+                            p.Blue = Pixelmap[i + 2];
+                            p.Alpha = Pixelmap[i + 3];
+                            pixels.Add(p);
+                        }
+                      
+
+                        int c = 0;
+                        for (int i = 0; i < widthint; i++)
+                        {
+                            for (int j = 0; j < heightint; j++)
+                            {
+                                pixel pp = pixels[c];
+                                b.SetPixel(j, i, System.Drawing.Color.FromArgb(pp.Alpha, pp.Red, pp.Green, pp.Blue));
+                                c++;
+                            }
+                        }
+                
+                     }
+               
                 return b;
 
             }
             catch (Exception e)
             {
                 throw e;
-                return null;
             }
         }
-
-        public class pixel
+        private class pixel
         {
             private int _red;
 
@@ -109,7 +106,14 @@ public static class SolidWorksBitmapHelper
                 get { return _blue; }
                 set { _blue = value; }
             }
-            private int Alpha {get; private set;}      
+            private int _alpha;
+
+            public int Alpha
+            {
+                get { return _alpha; }
+                set { _alpha = value; }
+            }
+	
         }
 
     }
