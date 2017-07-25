@@ -6,7 +6,7 @@
         /// <param name="token"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static Bitmap GetBitmap(this SketchPicture sp)
+        public static Bitmap GetBitmap(this SketchPicture sp, out string Error)
         {
             try
             {
@@ -78,13 +78,14 @@
                     }
 
                 }
-
+                Error = string.Empty;
                 return b;
 
             }
             catch (Exception e)
             {
-                Debug.Print(string.Format("Message: {0} StackTrace: {1}", e.Message, e.StrackTrace));
+                Error = string.Format("Message: {0} StackTrace: {1}", e.Message, e.StrackTrace);
+                return null;
             }
         }       
     }
