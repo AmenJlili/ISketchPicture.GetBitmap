@@ -1,7 +1,12 @@
-public class SolidWorksBitmapHelper
-    {
-        private SolidWorksBitmapHelper(){ }
-        public static Bitmap GetBitmapFromSketchPicture(SketchPicture sp)
+public static class Extension
+    {   
+	/// <summary>
+        /// return a Bitmap object from the Sketch Picture
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static Bitmap GetBitmap(this SketchPicture sp)
         {
             try
             {
@@ -78,10 +83,12 @@ public class SolidWorksBitmapHelper
             }
             catch (Exception e)
             {
-                throw e;
+                Debug.Print(string.Format("Message: {0} StackTrace: {0}",e.Message,e.StrackTrace));
             }
-        }
-        private class pixel
+        }       
+    }
+
+     public class pixel
         {
             private int _red;
 
@@ -115,5 +122,3 @@ public class SolidWorksBitmapHelper
             }
 	
         }
-
-    }
