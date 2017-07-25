@@ -83,7 +83,7 @@ public static class Extension
             }
             catch (Exception e)
             {
-                Debug.Print(string.Format("Message: {0} StackTrace: {0}",e.Message,e.StrackTrace));
+                Debug.Print(string.Format("Message: {0} StackTrace: {1}",e.Message,e.StrackTrace));
             }
         }       
     }
